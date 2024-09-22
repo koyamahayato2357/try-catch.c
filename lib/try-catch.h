@@ -13,11 +13,11 @@ extern int EXCEPTION_H_nest;
 void EXCEPTION_H_cl(int **g);
 
 #define EXCEPTION_H_TRY(cnt)                                                   \
-  for (bool EXCEPTION_H_GENUNIQTOK(cnt) = true; EXCEPTION_H_GENUNIQTOK(cnt);)  \
+  for (int EXCEPTION_H_GENUNIQTOK(cnt) = 1; EXCEPTION_H_GENUNIQTOK(cnt);)      \
     for (int *EXCEPTION_H_CAT(EXCEPIOTN_H_g_, cnt)                             \
              __attribute__((cleanup(EXCEPTION_H_cl))) = &EXCEPTION_H_nest;     \
-         EXCEPTION_H_GENUNIQTOK(cnt); EXCEPTION_H_GENUNIQTOK(cnt) = false)     \
       if ((errcode = setjmp(EXCEPTION_H_jb[EXCEPTION_H_nest++])) == 0)
+         EXCEPTION_H_GENUNIQTOK(cnt); EXCEPTION_H_GENUNIQTOK(cnt) = 0)         \
 
 #define try EXCEPTION_H_TRY(__COUNTER__)
 #define catch(e) else if (errcode == (e))
