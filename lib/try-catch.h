@@ -24,5 +24,5 @@ void EXCEPTION_H_cl(int **g);
 #define catch(e) else if (errcode == (e))
 #define catchor(e) else if (errcode & (e))
 #define catchany else
-#define throw(e) longjmp(EXCEPTION_H_jb[--EXCEPTION_H_nest], e);
 #define retry throw(ERR_RETRY)
+#define throw(e) longjmp(EXCEPTION_H_jb[EXCEPTION_H_nest - 1], e)
