@@ -9,7 +9,7 @@
  *                       | catchor (ERR1 | ERR2) puts("ccc");
  * ----------------------------------------------------------------------------
  * All error             | try maybe_throw();
- *                       | catchany err_handler();
+ *                       | catchany capture(errcode) err_handler(errcode);
  * ----------------------------------------------------------------------------
  * Propagate error       | maybe_throw();
  * ----------------------------------------------------------------------------
@@ -23,21 +23,20 @@
  *                       | }
  * ----------------------------------------------------------------------------
  * Get error code        | try maybe_throw();
- *                       | catchany
+ *                       | catchany capture(errcode)
  *                       |   printf("This is error code: %d\n", errcode);
  * ----------------------------------------------------------------------------
  * Thrower               | throw(ERR_CODE_OF_TYPE_INT);
  * ----------------------------------------------------------------------------
  *
  * Reserved word
- * - `errcode`
  * - `EXCEPTION_H_*`
  */
 
 #include "try-catch.h"
 
 jmp_buf EXCEPTION_H_jb[MAX_NEST_DEPTH];
-int errcode;
+int EXCEPTION_H_errcode;
 int EXCEPTION_H_nest;
 
 void EXCEPTION_H_cl(int **g) { (**g)--; }
